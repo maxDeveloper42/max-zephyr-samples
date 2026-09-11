@@ -1,0 +1,14 @@
+/ {
+    leds {
+        /* Add a second LED node to the existing leds container */
+        led1: led_1 {
+            gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>;
+            label = "Simulated LED 1";
+        };
+    };
+
+    aliases {
+        /* Now alias it so your C code can find it */
+        led1 = &led1;
+    };
+};
