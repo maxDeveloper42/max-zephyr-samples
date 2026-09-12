@@ -33,3 +33,8 @@ And i just run gdb ./build/zephyr/zephyr.exe
 - Most threads are in `__kernel_vsyscall` → **sleeping/blocked** (normal).
 - The `*` marks the **currently active thread** (`uart_out_id`).
 - Idle threads sleeping = **CPU not wasted** ✅
+
+
+---
+
+## trying to creat a thread by myself
