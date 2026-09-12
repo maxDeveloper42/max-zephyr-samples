@@ -184,10 +184,8 @@ K_THREAD_DEFINE(max_thread_id, STACKSIZE, adding_thread, NULL, NULL, NULL, PRIOR
 // here is a comment
 
 
-
-#ifdef THREAD_PRODUCER
-
-#define MAX_DYN_THREADS 88
+/*
+#define MAX_DYN_THREADS 8
 K_THREAD_STACK_ARRAY_DEFINE(dyn_d_stacks, MAX_DYN_THREADS, 1024);
 static struct k_thread dyn_d_tcb[MAX_DYN_THREADS];
 static int dyn_d_count = 0;
@@ -213,5 +211,5 @@ void dynamically_adding_thread(void)
 
 
 K_THREAD_DEFINE(dynamically_id, STACKSIZE, dynamically_adding_thread, NULL, NULL, NULL, PRIORITY, 0, 0);
+*/
 
-#endif
