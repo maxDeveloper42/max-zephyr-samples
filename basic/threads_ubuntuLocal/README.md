@@ -49,3 +49,12 @@ And i just run gdb ./build/zephyr/zephyr.exe
 ```bash
 ctags -R *
 ```
+hint: do not cat it!!!
+
+# `ctags -R *` — Quick Notes
+
+- Recursively scans all files in the current dir and subdirs
+- Extracts symbols: functions, variables, macros, structs, typedefs…
+- Writes them to a single index file: **`tags`** (no extension)
+- Each line = one symbol → file + line + search pattern
+- Example: `main	src/main.c	/^int main(void)$/;"	f`
