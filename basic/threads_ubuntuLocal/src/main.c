@@ -1,5 +1,4 @@
-/*
- * Copyright (c) 2017 Linaro Limited
+/* * Copyright (c) 2017 Linaro Limited
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -28,7 +27,9 @@
 #error "Unsupported board: led1 devicetree alias is not defined"
 #endif
 
-#define THREAD_PRODUCER 1
+#define THREAD_ADDER 0
+#define THREAD_PRODUCER 0
+#define THREAD_REAL_BOOM 0
 
 // a var i try to track to see with debug
 int loopTracker = 0;
@@ -112,8 +113,8 @@ void uart_out(void)
 
 		// printk("this is a line created by Max. \n");
 
-		if(rx_data->cnt%67 == 0){
-			printk("=============the number can be devided by 67========================, %i\n",loopTracker);
+		if(rx_data->cnt%97 == 0){
+			printk("=============the number can be devided by 97========================, %i\n",loopTracker);
 			loopTracker++;
 		}
 
@@ -122,6 +123,23 @@ void uart_out(void)
 	}
 }
 
+
+K_THREAD_DEFINE(blink0_id, STACKSIZE, blink0, NULL, NULL, NULL,
+		PRIORITY, 0, 0);
+K_THREAD_DEFINE(blink1_id, STACKSIZE, blink1, NULL, NULL, NULL,
+		PRIORITY, 0, 0);
+K_THREAD_DEFINE(uart_out_id, STACKSIZE, uart_out, NULL, NULL, NULL,
+		PRIORITY, 0, 0);
+
+
+
+
+
+
+
+
+
+#if THREAD_ADDER
 
 // global for dynamic thread
 K_THREAD_STACK_DEFINE(dyn_stack, 1024);
@@ -171,21 +189,24 @@ void adding_thread(){
 	}
 }
 
-
-K_THREAD_DEFINE(blink0_id, STACKSIZE, blink0, NULL, NULL, NULL,
-		PRIORITY, 0, 0);
-K_THREAD_DEFINE(blink1_id, STACKSIZE, blink1, NULL, NULL, NULL,
-		PRIORITY, 0, 0);
-K_THREAD_DEFINE(uart_out_id, STACKSIZE, uart_out, NULL, NULL, NULL,
-		PRIORITY, 0, 0);
-
 K_THREAD_DEFINE(max_thread_id, STACKSIZE, adding_thread, NULL, NULL, NULL, PRIORITY, 0, 0);
 
 // here is a comment
 
+#endif
 
 
-#ifdef THREAD_PRODUCER
+
+
+
+
+
+
+
+
+
+
+#if THREAD_PRODUCER
 
 #define MAX_DYN_THREADS 88
 K_THREAD_STACK_ARRAY_DEFINE(dyn_d_stacks, MAX_DYN_THREADS, 1024);
@@ -215,3 +236,51 @@ void dynamically_adding_thread(void)
 K_THREAD_DEFINE(dynamically_id, STACKSIZE, dynamically_adding_thread, NULL, NULL, NULL, PRIORITY, 0, 0);
 
 #endif
+
+
+
+
+
+
+
+
+
+
+#if THREAD_REAL_BOOM
+ 
+int boom_threads_id = 0;
+
+
+/*
+You can't create a "real thread boom" with the `west` build system because Zephyr's thread stacks and thread control blocks must be **statically defined at file scope during compile time**, and **cannot be declared dynamically inside a function**.
+
+In other words:
+
+- `K_THREAD_STACK_DEFINE` / `K_THREAD_DEFINE` expand to global variables placed in special linker sections — so they must be at **file scope**, not inside a function.
+- To spawn threads at runtime you need `k_thread_create`, but the stack memory and `struct k_thread` still have to be **pre-allocated** (usually as file-scope arrays, or via `k_malloc`).
+- `west` itself is not the limitation — the limitation comes from **C scope rules** and **Zephyr's kernel API**.
+*/
+
+void threads_boom(){
+	while(1){
+		printk("this is the threads booomer func, with the boom_threads_id of %i\n", boom_threads_id);
+		boom_threads_id++;
+	
+		// The real problem: K_THREAD_DEFINE cannot be called inside a function
+		// K_THREAD_DEFINE(void, STACKSIZE, threads_boom, NULL, NULL, NULL, PRIORITY, 0, 0);
+
+		 //K_THREAD_STACK_DEFINE is also a file-scope (static, linker-section) macro — it cannot be used inside a function.		
+		// K_THREAD_STACK_DEFINE(boom_threads_id, 1024);
+
+		k_msleep(1000);
+	}
+}
+
+
+K_THREAD_DEFINE(thread_boomer_id, STACKSIZE, threads_boom, NULL, NULL, NULL, PRIORITY, 0, 0);
+
+
+
+
+#endif
+

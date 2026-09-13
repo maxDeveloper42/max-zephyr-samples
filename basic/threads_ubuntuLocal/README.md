@@ -38,3 +38,14 @@ And i just run gdb ./build/zephyr/zephyr.exe
 ---
 
 ## trying to creat a thread by myself
+
+
+
+
+
+
+## generating CTAGs for vim to jump
+
+```bash
+ctags -R *
+```
