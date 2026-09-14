@@ -1,3 +1,10 @@
 **/build/
 **/tags
 
+# .gitignore
+tags
+TAGS
+cscope.out
+cscope.in.out
+cscope.po.out
+
