@@ -25,3 +25,18 @@ nrf52_bsim
 ---
 
 now, I am going to explore the sleep and threads_ctrl
+
+
+
+
+
+
+
+---
+
+ZEPHYR_BASE is the key environment variable you need for out-of-tree apps
+
+jsut give:
+```bash
+export ZEPHYR_BASE=~/zephyrproject/zephyr
+```
