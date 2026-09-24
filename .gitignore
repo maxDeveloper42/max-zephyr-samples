@@ -9,3 +9,6 @@ cscope.in.out
 cscope.po.out
 
 tags
+
+# vim swap file
+*.swp

@@ -1,10 +1,10 @@
 ### max-zephyr-samples
 
-This repo is for me to learn and tests zephyr samples in its offically project
+This repo is for me to learn and tests zephyr samples in its offically project.
 
-And this is designed to be a OOT work base, requires zephyrproject and zephyr
+And this is designed to be a OOT work base, which requires zephyrproject and zephyr.
 
-I wrote README in each subfolder about what i did there.
+Each sample folder may include READEME discribe what I did there.
 
 currently, invovled 
 
@@ -24,10 +24,12 @@ nrf52_bsim
 
 ---
 
-now, I am going to explore the sleep and threads_ctrl
+To explore the sleep and threads_ctrl
 
-
-
+I placed at
+```bash
+basic/threads_ubuntuLocal/sourcecode_refer/sleep.c
+```
 
 
 
@@ -40,3 +42,17 @@ jsut give:
 ```bash
 export ZEPHYR_BASE=~/zephyrproject/zephyr
 ```
+
+---
+
+Sep 24, I deleted the zephyerproject and the zephyer-SDK on my tencent server, because it is almost full(it even break my SSH connection). Another reason is I came to find myself learning purposeless. I just screw around blindnessly, without exact target and goal.
+
+So, next time I will define myself well before start my exploration on this.
+
+
+
+
+
+
+AA
+
